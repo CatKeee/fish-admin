@@ -1,7 +1,10 @@
 {
-  "name": "weiben-admin",
-  "version": "0.0.0",
+  "name": "fish-admin",
+  "version": "1.0.0",
   "private": true,
+  "author": "JXDN",
+  "description": "fish-admin",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
