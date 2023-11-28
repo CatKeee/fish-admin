@@ -1,6 +1,6 @@
-# 🔥weiben-admin
+# 🔥fish-admin
 
-维本网络后台管理模板
+后台管理模板
 
 ## 介绍
 
@@ -17,6 +17,10 @@
 ## 运行
 
 ```bash
+# 克隆项目
+git clone https://github.com/CatKeee/fish-admin.git
+# 打开目录
+cd fish-admin
 # 安装依赖
 npm i
 # 本地开发
