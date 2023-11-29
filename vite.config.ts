@@ -19,11 +19,7 @@ export default defineConfig({
         /\.vue\?vue/, // .vue
         /\.md$/, // .md
       ],
-      imports: [
-        "vue",
-        "vue-router",
-        { "ant-design-vue": ["message"] }
-      ],
+      imports: ["vue", "vue-router", { "ant-design-vue": ["message"] }],
       dts: "./auto-import.d.ts",
       resolvers: [AntDesignVueResolver()],
     }),
@@ -48,5 +44,5 @@ export default defineConfig({
     //     rewrite: (path) => path.replace(/^\/api/, ""),
     //   },
     // },
-  }
+  },
 });

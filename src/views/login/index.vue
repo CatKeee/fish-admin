@@ -3,58 +3,126 @@
     <div class="hero"></div>
     <div class="form_container flex justify-center items-center">
       <div class="logo flex items-center gap-4">
-        <img src="./../../assets/logo.svg" alt="">
+        <img src="./../../assets/logo.svg" alt="" />
         <span class="font-medium">账号登录</span>
       </div>
-      <a-form ref="formRef" class="form_main" :model="formState" name="basic" autocomplete="true" @finish="onFinish"
+      <a-form
+        ref="formRef"
+        class="form_main"
+        :model="formState"
+        name="basic"
+        autocomplete="true"
+        @finish="onFinish"
         @finishFailed="onFinishFailed">
-        <a-tabs v-model:activeKey="activeKey" animated size="large" @change="onTabsChange">
+        <a-tabs
+          v-model:activeKey="activeKey"
+          animated
+          size="large"
+          @change="onTabsChange">
           <a-tab-pane key="1" tab="账号">
-            <a-form-item class="w-full" name="username"
-              :rules="[{ required: true, message: '请输入您的账号' }, { validator: checkAccount }]">
-              <a-input v-model:value="formState.username" size="large" class="w-full" placeholder="手机号/邮箱/账号">
+            <a-form-item
+              class="w-full"
+              name="account"
+              :rules="[
+                { required: activeKey === '1', message: '请输入您的账号' },
+                { validator: checkAccount },
+              ]">
+              <a-input
+                v-model:value="formState.account"
+                size="large"
+                class="w-full"
+                placeholder="手机号/邮箱/账号">
                 <template #prefix>
-                  <UserOutlined style="color: var(--vt-c-text-2);" />
+                  <UserOutlined style="color: var(--vt-c-text-2)" />
                 </template>
               </a-input>
             </a-form-item>
 
-            <a-form-item name="password" :rules="[{ required: true, message: '请输入您的密码' }, { validator: checkPassword }]">
-              <a-input-password v-model:value="formState.password" autocomplete="off" size="large" placeholder="密码">
+            <a-form-item
+              name="password"
+              :rules="[
+                { required: activeKey === '1', message: '请输入您的密码' },
+                { validator: checkPassword },
+              ]">
+              <a-input-password
+                v-model:value="formState.password"
+                autocomplete="off"
+                size="large"
+                placeholder="密码">
                 <template #prefix>
-                  <LockOutlined style="color: var(--vt-c-text-2);" />
+                  <LockOutlined style="color: var(--vt-c-text-2)" />
                 </template>
               </a-input-password>
             </a-form-item>
           </a-tab-pane>
           <a-tab-pane key="2" tab="手机号" force-render>
-            <a-form-item class="w-full" name="phone"
-              :rules="[{ required: true, message: '请输入您的手机号' }, { validator: checkPhone }]">
-              <a-input v-model:value="formState.phone" size="large" class="w-full" placeholder="手机号" :maxlength="11">
+            <a-form-item
+              class="w-full"
+              name="phone"
+              :rules="[
+                { required: activeKey === '2', message: '请输入您的手机号' },
+                { validator: checkPhone },
+              ]">
+              <a-input
+                v-model:value="formState.phone"
+                size="large"
+                class="w-full"
+                placeholder="手机号"
+                :maxlength="11">
                 <template #prefix>
-                  <UserOutlined style="color: var(--vt-c-text-2);" />
+                  <UserOutlined style="color: var(--vt-c-text-2)" />
                 </template>
               </a-input>
             </a-form-item>
 
-            <a-form-item name="code"
-              :rules="[{ required: true, message: '请输入您的验证码' }, { type: 'number', message: '请输入六位数字验证码' }]">
-              <a-input v-model:value="formState.code" size="large" placeholder="验证码" :maxlength="6">
+            <a-form-item
+              name="code"
+              :rules="[
+                { required: activeKey === '2', message: '请输入您的验证码' },
+                { type: 'number', message: '请输入六位数字验证码' },
+              ]">
+              <a-input
+                v-model:value="formState.code"
+                size="large"
+                placeholder="验证码"
+                :maxlength="6">
                 <template #prefix>
-                  <SafetyOutlined style="color: var(--vt-c-text-2);" />
+                  <SafetyOutlined style="color: var(--vt-c-text-2)" />
                 </template>
                 <template #addonAfter>
-                  <div class="code" @click="getCode">{{ `${codeText}${codeStatus ? 's' : ''}` }}</div>
+                  <div class="code" @click="getCode">
+                    {{ `${codeText}${codeStatus ? "s" : ""}` }}
+                  </div>
                 </template>
               </a-input>
             </a-form-item>
           </a-tab-pane>
         </a-tabs>
         <a-form-item>
-          <a-checkbox v-model:checked="formState.remember">已同意<a>用户协议</a>和<a>隐私政策</a></a-checkbox>
+          <a-checkbox v-model:checked="formState.remember"
+            >已同意<a>用户协议</a>和<a>隐私政策</a></a-checkbox
+          >
         </a-form-item>
         <a-form-item>
-          <a-button class="w-full" type="primary" html-type="submit" size="large">登录</a-button>
+          <a-button
+            class="w-full"
+            type="primary"
+            html-type="submit"
+            size="large"
+            :loading="loading"
+            >{{ !loading ? "登录" : "登录中" }}</a-button
+          >
+        </a-form-item>
+        <a-divider>其他方式登录</a-divider>
+        <a-form-item>
+          <div class="flex gap-6 justify-center">
+            <div class="cursor-pointer" @click="otherLogin('wechat')">
+              <WechatOutlined style="font-size: 2rem" />
+            </div>
+            <div class="cursor-pointer" @click="otherLogin('github')">
+              <GithubOutlined style="font-size: 2rem" />
+            </div>
+          </div>
         </a-form-item>
       </a-form>
     </div>
@@ -62,25 +130,27 @@
 </template>
 
 <script lang="ts" setup>
-import type { ActiveKeyType } from 'ant-design-vue/es/collapse/commonProps';
-import { checkAccount, checkPassword, checkPhone } from '@/utils/validator'
+import type { ActiveKeyType } from "ant-design-vue/es/collapse/commonProps";
+import { checkAccount, checkPassword, checkPhone } from "@/utils/validator";
 
 const formState = reactive<FormState>({
-  username: '',
-  password: '',
-  phone: '',
-  code: '',
+  account: "18877888877",
+  password: "@jxdn123",
+  phone: "",
+  code: "",
   remember: true,
 });
-const formRef = ref()
-const activeKey = ref<string>('1');
-const codeText = ref<number | string>('获取验证码');
+const formRef = ref();
+const activeKey = ref<string>("1");
+const codeText = ref<number | string>("获取验证码");
 const codeStatus = ref<boolean>(false);
 const codeTimer = ref<any>(null);
-const loginType = ref<ActiveKeyType>('1')
+const loginType = ref<ActiveKeyType>("1");
+const router = useRouter();
+const loading = ref<boolean>(false);
 
 interface FormState {
-  username: string;
+  account: string;
   password: string;
   phone: string;
   code: string;
@@ -88,32 +158,42 @@ interface FormState {
 }
 
 const onFinish = (values: any) => {
-  console.log('Success:', values);
+  // console.log('Success:', values);
+  loading.value = true;
+  const { phone, code, password, account } = values;
+  message.success("登录成功");
+  setTimeout(() => {
+    router.push("/home");
+  }, 1000);
+};
+
+const otherLogin = (type: "wechat" | "github") => {
+  message.warning("功能未开放");
 };
 
 const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
+  console.log("Failed:", errorInfo);
 };
 
 const onTabsChange = (e: ActiveKeyType) => {
-  formRef.value.clearValidate()
-  loginType.value = e
-}
+  formRef.value.clearValidate();
+  loginType.value = e;
+};
 
 const getCode = () => {
-  if (codeStatus.value) return
-  message.success('验证码已发送')
-  codeStatus.value = true
-  codeText.value = 60
+  if (codeStatus.value) return;
+  message.success("验证码已发送");
+  codeStatus.value = true;
+  codeText.value = 60;
   codeTimer.value = setInterval(() => {
-    codeText.value = codeText.value as number - 1
-    if (codeText.value as number === 0) {
-      codeStatus.value = false
-      clearInterval(codeTimer.value)
-      codeText.value = '获取验证码'
+    codeText.value = (codeText.value as number) - 1;
+    if ((codeText.value as number) === 0) {
+      codeStatus.value = false;
+      clearInterval(codeTimer.value);
+      codeText.value = "获取验证码";
     }
-  }, 1000)
-}
+  }, 1000);
+};
 </script>
 
 <style lang="less" scoped>
@@ -121,16 +201,16 @@ const getCode = () => {
   margin-inline-end: 7px;
 }
 
-::v-deep(.ant-tabs-top >.ant-tabs-nav::before) {
+::v-deep(.ant-tabs-top > .ant-tabs-nav::before) {
   border: none;
 }
 
-::v-deep(.ant-tabs-top >.ant-tabs-nav .ant-tabs-ink-bar) {
+::v-deep(.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar) {
   border-radius: 2px;
   height: 2.5px;
 }
 
-::v-deep(.ant-tabs-large >.ant-tabs-nav .ant-tabs-tab) {
+::v-deep(.ant-tabs-large > .ant-tabs-nav .ant-tabs-tab) {
   padding-top: 0;
 }
 
@@ -140,13 +220,13 @@ const getCode = () => {
   .hero {
     width: calc(25% + 2rem);
     height: 100vh;
-    background-image: url('./../../assets/image/hero.jpg');
+    background-image: url("./../../assets/image/hero.jpg");
     background-size: auto 100%;
     background-position: center;
     position: absolute;
     left: 0;
     top: 0;
-    filter: grayscale(0%); 
+    filter: grayscale(0%);
   }
 
   .form_container {

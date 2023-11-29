@@ -12,6 +12,19 @@ const router = createRouter({
         title: "登录",
       },
     },
+    {
+      path: "/:catchAll(.*)",
+      redirect: "/404",
+    },
+    {
+      path: "/404",
+      name: "404",
+      component: () => import("../views/error/404.vue"),
+      meta: {
+        title: "找不到该页面",
+      },
+
+    }
   ],
 });
 

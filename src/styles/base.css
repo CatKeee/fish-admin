@@ -9,6 +9,7 @@ body {
   "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
   "Fira Sans", "Droid Sans", "Helvetica Neue",
   sans-serif !important;
+  color: var(--vt-c-text-1);
 }
 
 .page {
@@ -16,4 +17,16 @@ body {
   width: 100%;
   background-color: var(--vt-c-bg);
   position: relative;
+}
+
+.logo_s {
+  width: 50px;
+}
+
+.logo_m {
+  width: 80px;
+}
+
+.logo_l {
+  width: 110px;
 }
