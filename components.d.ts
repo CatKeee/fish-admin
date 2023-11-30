@@ -17,7 +17,6 @@ declare module 'vue' {
     AInputPassword: typeof import('ant-design-vue/es')['InputPassword']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
-    DownloadOutlined: typeof import('@ant-design/icons-vue')['DownloadOutlined']
     GithubOutlined: typeof import('@ant-design/icons-vue')['GithubOutlined']
     HomeOutlined: typeof import('@ant-design/icons-vue')['HomeOutlined']
     LockOutlined: typeof import('@ant-design/icons-vue')['LockOutlined']
